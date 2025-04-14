@@ -1,4 +1,4 @@
-package com.leandroSS.API_Loja.serevices;
+package com.leandroSS.API_Loja.services;
 
 import com.leandroSS.API_Loja.entities.user.UserEntity;
 import com.leandroSS.API_Loja.repositories.UserRepository;

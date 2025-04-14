@@ -1,9 +1,8 @@
 package com.leandroSS.API_Loja.controllers;
 
-import com.leandroSS.API_Loja.entities.product.ProductEntity;
 import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
 import com.leandroSS.API_Loja.entities.product.ProductResponseDTO;
-import com.leandroSS.API_Loja.serevices.ProductService;
+import com.leandroSS.API_Loja.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

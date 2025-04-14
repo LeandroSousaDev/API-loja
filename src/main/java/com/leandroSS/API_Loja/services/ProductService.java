@@ -1,4 +1,4 @@
-package com.leandroSS.API_Loja.serevices;
+package com.leandroSS.API_Loja.services;
 
 import com.leandroSS.API_Loja.entities.product.ProductEntity;
 import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
