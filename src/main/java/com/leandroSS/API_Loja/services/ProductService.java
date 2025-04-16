@@ -5,6 +5,7 @@ import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
 import com.leandroSS.API_Loja.entities.product.ProductResponseDTO;
 import com.leandroSS.API_Loja.repositories.ProductRepsitory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,15 @@ public class ProductService {
     @Autowired
     private ProductRepsitory productRepsitory;
 
-    public void postProduct(ProductRequestDTO productRequestDTO) {
+    @Autowired
+    private TokenService tokenService;
+
+
+    public void postProduct(ProductRequestDTO productRequestDTO, JwtAuthenticationToken token) throws Exception {
+
+        if (!this.tokenService.isAdmin(token)) {
+            throw new Exception("Usuario não autorizado");
+        }
 
         ProductEntity newProduct = new ProductEntity(productRequestDTO);
 
@@ -23,8 +32,8 @@ public class ProductService {
     }
 
     public List<ProductResponseDTO> getAllProducts() {
-        List<ProductResponseDTO> productList = this.productRepsitory.findAll()
-                .stream().map(product -> new ProductResponseDTO(product)).toList();
+        var productList = this.productRepsitory.findAll()
+                .stream().map(ProductResponseDTO::new).toList();
 
         return productList;
     }

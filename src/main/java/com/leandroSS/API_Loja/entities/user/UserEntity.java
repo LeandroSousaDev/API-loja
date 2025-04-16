@@ -28,3 +28,15 @@ public class UserEntity {
         return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,12 +12,16 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @GetMapping("/users")
-    public ResponseEntity<List<UserEntity>> listUsers() {
-        var users = userRepository.findAll();
-        return ResponseEntity.ok(users);
-    }
+
+
+
 }
+
+
+
+
+
+
+
+
