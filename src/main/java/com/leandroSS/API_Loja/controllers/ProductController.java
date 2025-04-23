@@ -7,6 +7,7 @@ import com.leandroSS.API_Loja.repositories.UserRepository;
 import com.leandroSS.API_Loja.services.ProductService;
 import com.leandroSS.API_Loja.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ public class ProductController {
     public ResponseEntity<Void> postProduct(@RequestBody ProductRequestDTO productRequestDTO,
                                             JwtAuthenticationToken token) throws Exception {
         this.productService.postProduct(productRequestDTO, token);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping()
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         var allProducts = this.productService.getAllProducts();
-        return ResponseEntity.ok().body(allProducts);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
 

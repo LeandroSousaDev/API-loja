@@ -2,6 +2,7 @@ package com.leandroSS.API_Loja.services;
 
 import com.leandroSS.API_Loja.entities.user.CreateUserDto;
 import com.leandroSS.API_Loja.entities.user.UserEntity;
+import com.leandroSS.API_Loja.exception.UserAlreadyRegistered;
 import com.leandroSS.API_Loja.repositories.UserRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public void register(CreateUserDto createUserDto) throws Exception {
+    public void register(CreateUserDto createUserDto) {
 
         var user = userRepository.findByUsername(createUserDto.username());
         if (user.isPresent()) {
-            throw  new Exception("Usuario ja existe");
+            throw  new UserAlreadyRegistered("Usuario ja existe");
         }
 
         UserEntity newUser = new UserEntity();

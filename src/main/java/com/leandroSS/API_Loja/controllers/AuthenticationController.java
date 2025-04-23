@@ -7,6 +7,7 @@ import com.leandroSS.API_Loja.services.TokenService;
 import com.leandroSS.API_Loja.services.UserService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,23 +29,16 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
-        try {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
             var loginUser = this.tokenService.login(loginRequest);
-            return ResponseEntity.ok(loginUser);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+            return ResponseEntity.status(HttpStatus.OK).body(loginUser);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody CreateUserDto createUserDto) throws Exception {
-        try {
+    public ResponseEntity<?> register(@RequestBody CreateUserDto createUserDto) {
             this.userService.register(createUserDto);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+
     }
 }
 

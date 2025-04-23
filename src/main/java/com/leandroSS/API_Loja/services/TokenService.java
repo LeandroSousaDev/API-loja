@@ -3,6 +3,7 @@ package com.leandroSS.API_Loja.services;
 import com.leandroSS.API_Loja.entities.user.LoginRequest;
 import com.leandroSS.API_Loja.entities.user.LoginResponse;
 import com.leandroSS.API_Loja.entities.user.UserType;
+import com.leandroSS.API_Loja.exception.InvalidLoginOrPassword;
 import com.leandroSS.API_Loja.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,12 +29,12 @@ public class TokenService {
     private JwtEncoder jwtEncoder;
 
 
-    public LoginResponse login(LoginRequest loginRequest) throws Exception {
+    public LoginResponse login(LoginRequest loginRequest) {
 
         var user = userRepository.findByUsername(loginRequest.username());
 
         if (user.isEmpty() || !user.get().isLoginCorrect(loginRequest, bCryptPasswordEncoder)) {
-            throw new Exception("Useario ou senha invalido");
+            throw new InvalidLoginOrPassword("Useario ou senha invalido");
         }
 
         var now = Instant.now();
@@ -58,11 +59,9 @@ public class TokenService {
 
         var user = this.userRepository.findById(Long.valueOf(token.getName()));
 
-        if (!user.get().getRole().equals(UserType.ADMIN)) {
-            return false;
-        } else {
-            return true;
-        }
+//        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
+
+        return user.get().getRole().equals(UserType.ADMIN);
 
     }
 
@@ -70,11 +69,9 @@ public class TokenService {
 
         var user = this.userRepository.findById(Long.valueOf(token.getName()));
 
-        if (!user.get().getRole().equals(UserType.USER)) {
-            return false;
-        } else {
-            return true;
-        }
+        //        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
+
+        return user.get().getRole().equals(UserType.USER);
 
     }
 }
