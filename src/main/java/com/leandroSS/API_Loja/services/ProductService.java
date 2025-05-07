@@ -3,7 +3,7 @@ package com.leandroSS.API_Loja.services;
 import com.leandroSS.API_Loja.entities.product.ProductEntity;
 import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
 import com.leandroSS.API_Loja.entities.product.ProductResponseDTO;
-import com.leandroSS.API_Loja.repositories.ProductRepsitory;
+import com.leandroSS.API_Loja.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private ProductRepsitory productRepsitory;
+    private ProductRepository productRepsitory;
 
     @Autowired
     private TokenService tokenService;
@@ -32,10 +32,17 @@ public class ProductService {
     }
 
     public List<ProductResponseDTO> getAllProducts() {
-        var productList = this.productRepsitory.findAll()
-                .stream().map(ProductResponseDTO::new).toList();
+        var productList = this.productRepsitory.findAll();
 
-        return productList;
+
+
+        return productList
+                .stream()
+                .map(product -> new ProductResponseDTO(
+                        product.getName(),
+                        product.getCategory() ,
+                        product.getPrice()))
+                .toList();
     }
 }
 
