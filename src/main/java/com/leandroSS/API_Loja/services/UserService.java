@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,6 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     public void register(CreateUserDto createUserDto) {
 
         var user = userRepository.findByUsername(createUserDto.username());
@@ -28,13 +28,21 @@ public class UserService {
             throw  new UserAlreadyRegistered("Usuario ja existe");
         }
 
-        UserEntity newUser = new UserEntity();
-        newUser.setUsername(createUserDto.username());
-        newUser.setPassword(bCryptPasswordEncoder.encode(createUserDto.password()));
-        newUser.setRole(createUserDto.userType());
+        String encryptedPassword = bCryptPasswordEncoder.encode(createUserDto.password());
+
+        UserEntity newUser = new UserEntity(
+                createUserDto.username(),
+                encryptedPassword,
+                createUserDto.userType());
 
         userRepository.save(newUser);
     }
+
+    public List<UserEntity> listUser() {
+        return this.userRepository.findAll();
+    }
+
+
 }
 
 
