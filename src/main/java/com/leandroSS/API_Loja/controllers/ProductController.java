@@ -26,9 +26,19 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
-        var allProducts = this.productService.getAllProducts();
-        return ResponseEntity.status(HttpStatus.OK).body(allProducts);
+    public ResponseEntity<List<ProductResponseDTO>> getAllProducts(
+            @RequestParam(required = false) String category
+    ) {
+
+        List<ProductResponseDTO> allProduct;
+
+        if (category != null) {
+            allProduct = this.productService.productByCAtegory(category);
+        } else {
+            allProduct = this.productService.getAllProducts();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(allProduct);
     }
 }
 

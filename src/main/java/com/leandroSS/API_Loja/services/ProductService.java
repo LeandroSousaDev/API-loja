@@ -43,6 +43,18 @@ public class ProductService {
                         product.getPrice()))
                 .toList();
     }
+
+    public List<ProductResponseDTO> productByCAtegory(String category) {
+
+        var listProduct = this.productRepsitory.findByCategory(category).orElse(null);
+
+        return listProduct.stream()
+                .map(product -> new ProductResponseDTO(
+                        product.getName(),
+                        product.getCategory(),
+                        product.getPrice()
+                )).toList();
+    }
 }
 
 
