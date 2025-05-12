@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppList {
+public class ShoppListEntity {
 
    @EmbeddedId
    private ShoppListId id;

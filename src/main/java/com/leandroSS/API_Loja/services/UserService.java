@@ -1,16 +1,14 @@
 package com.leandroSS.API_Loja.services;
 
-import com.leandroSS.API_Loja.entities.user.CreateUserDto;
+import com.leandroSS.API_Loja.entities.user.dto.CreateUserDto;
 import com.leandroSS.API_Loja.entities.user.UserEntity;
 import com.leandroSS.API_Loja.exception.UserAlreadyRegistered;
 import com.leandroSS.API_Loja.repositories.UserRepository;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {

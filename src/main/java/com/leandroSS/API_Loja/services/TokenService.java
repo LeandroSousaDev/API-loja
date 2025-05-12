@@ -1,12 +1,11 @@
 package com.leandroSS.API_Loja.services;
 
-import com.leandroSS.API_Loja.entities.user.LoginRequest;
-import com.leandroSS.API_Loja.entities.user.LoginResponse;
+import com.leandroSS.API_Loja.entities.user.dto.LoginRequest;
+import com.leandroSS.API_Loja.entities.user.dto.LoginResponse;
 import com.leandroSS.API_Loja.entities.user.UserType;
 import com.leandroSS.API_Loja.exception.InvalidLoginOrPassword;
 import com.leandroSS.API_Loja.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -76,24 +75,3 @@ public class TokenService {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

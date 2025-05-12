@@ -1,7 +1,7 @@
 package com.leandroSS.API_Loja.controllers;
 
-import com.leandroSS.API_Loja.entities.shopList.CreateShoppListDTO;
-import com.leandroSS.API_Loja.entities.shopList.UserItemListDTO;
+import com.leandroSS.API_Loja.entities.shopList.dto.CreateShoppListDTO;
+import com.leandroSS.API_Loja.entities.shopList.dto.UserItemListDTO;
 import com.leandroSS.API_Loja.services.ShoppListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/shoppList")
@@ -31,21 +30,10 @@ public class ShoppListController {
         return  ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
 
-//    @DeleteMapping("/{idITem}")
-//    public  ResponseEntity<Void> deleteItem(@PathVariable("idItem") String idItem, JwtAuthenticationToken token) throws Exception {
-//        this.shoppListService.deleteItem(Long.valueOf(idItem), token);
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteItem(@PathVariable("userId") String userId, JwtAuthenticationToken token) throws Exception {
+        this.shoppListService.deleteItem(Long.valueOf(userId), token);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -1,13 +1,11 @@
 package com.leandroSS.API_Loja.entities.user;
 
-import com.leandroSS.API_Loja.entities.shopList.ShoppList;
+import com.leandroSS.API_Loja.entities.shopList.ShoppListEntity;
+import com.leandroSS.API_Loja.entities.user.dto.LoginRequest;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.management.relation.Relation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class UserEntity {
     private UserType role;
 
     @OneToMany(mappedBy = "user")
-    private List<ShoppList> shoppLists = new ArrayList<>();
+    private List<ShoppListEntity> shoppLists = new ArrayList<>();
 
     public UserEntity(String username, String password, UserType role) {
         this.username = username;

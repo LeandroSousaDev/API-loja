@@ -1,8 +1,8 @@
 package com.leandroSS.API_Loja.services;
 
 import com.leandroSS.API_Loja.entities.product.ProductEntity;
-import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
-import com.leandroSS.API_Loja.entities.product.ProductResponseDTO;
+import com.leandroSS.API_Loja.entities.product.dto.ProductRequestDTO;
+import com.leandroSS.API_Loja.entities.product.dto.ProductResponseDTO;
 import com.leandroSS.API_Loja.exception.UnauthorizedUser;
 import com.leandroSS.API_Loja.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,20 +56,3 @@ public class ProductService {
                 )).toList();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

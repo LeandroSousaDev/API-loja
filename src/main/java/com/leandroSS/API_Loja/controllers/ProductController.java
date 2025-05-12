@@ -1,7 +1,7 @@
 package com.leandroSS.API_Loja.controllers;
 
-import com.leandroSS.API_Loja.entities.product.ProductRequestDTO;
-import com.leandroSS.API_Loja.entities.product.ProductResponseDTO;
+import com.leandroSS.API_Loja.entities.product.dto.ProductRequestDTO;
+import com.leandroSS.API_Loja.entities.product.dto.ProductResponseDTO;
 import com.leandroSS.API_Loja.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,7 @@ public class ProductController {
 
     @GetMapping()
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts(
-            @RequestParam(required = false) String category
-    ) {
+            @RequestParam(required = false) String category) {
 
         List<ProductResponseDTO> allProduct;
 
@@ -41,18 +40,3 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(allProduct);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

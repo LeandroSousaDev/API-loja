@@ -1,4 +1,4 @@
-package com.leandroSS.API_Loja.entities.shopList;
+package com.leandroSS.API_Loja.entities.shopList.dto;
 
 import java.util.List;
 

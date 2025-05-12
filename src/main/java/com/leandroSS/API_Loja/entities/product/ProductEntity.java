@@ -1,6 +1,7 @@
 package com.leandroSS.API_Loja.entities.product;
 
-import com.leandroSS.API_Loja.entities.shopList.ShoppList;
+import com.leandroSS.API_Loja.entities.product.dto.ProductRequestDTO;
+import com.leandroSS.API_Loja.entities.shopList.ShoppListEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class ProductEntity {
     private Integer price;
 
     @OneToMany(mappedBy = "product")
-    private List<ShoppList> shoppLists = new ArrayList<>();
+    private List<ShoppListEntity> shoppLists = new ArrayList<>();
 
     public ProductEntity(ProductRequestDTO data) {
         this.price = data.price();
