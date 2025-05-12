@@ -20,4 +20,10 @@ public class ExcepitionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(threartResponse);
     }
 
+    @ExceptionHandler(UnauthorizedUser.class)
+    ResponseEntity<ErrorMessage> unauthorizedUser(UnauthorizedUser exception) {
+        ErrorMessage threartResponse = new ErrorMessage(exception.getMessage(), "401");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(threartResponse);
+    }
+
 }

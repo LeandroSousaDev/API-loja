@@ -20,7 +20,7 @@ public class ProductController {
 
     @PostMapping()
     public ResponseEntity<Void> postProduct(@RequestBody ProductRequestDTO productRequestDTO,
-                                            JwtAuthenticationToken token) throws Exception {
+                                            JwtAuthenticationToken token) {
         this.productService.postProduct(productRequestDTO, token);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

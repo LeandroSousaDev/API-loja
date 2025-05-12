@@ -55,23 +55,24 @@ public class TokenService {
         return new LoginResponse(jwtValue, expiresIn);
     }
 
-    public Boolean isAdmin(JwtAuthenticationToken token) throws Exception {
+    public Boolean isAdmin(JwtAuthenticationToken token) {
 
-        var user = this.userRepository.findById(Long.valueOf(token.getName()));
+        var user = this.userRepository.findById(Long.valueOf(token.getName())).orElse(null);
 
 //        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
 
-        return user.get().getRole().equals(UserType.ADMIN);
+
+        return user.getRole().equals(UserType.ADMIN);
 
     }
 
-    public Boolean isUser(JwtAuthenticationToken token) throws Exception {
+    public Boolean isUser(JwtAuthenticationToken token) {
 
-        var user = this.userRepository.findById(Long.valueOf(token.getName()));
+        var user = this.userRepository.findById(Long.valueOf(token.getName())).orElse(null);
 
         //        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
 
-        return user.get().getRole().equals(UserType.USER);
+        return user.getRole().equals(UserType.USER);
 
     }
 }

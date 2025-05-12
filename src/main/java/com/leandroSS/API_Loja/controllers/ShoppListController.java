@@ -20,7 +20,7 @@ public class ShoppListController {
 
     @PostMapping()
     public ResponseEntity<Void> addItem(@RequestBody CreateShoppListDTO createShoppListDTO,
-                                        JwtAuthenticationToken token) throws Exception {
+                                        JwtAuthenticationToken token) {
         this.shoppListService.addItem(createShoppListDTO, token);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

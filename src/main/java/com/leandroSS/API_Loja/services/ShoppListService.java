@@ -1,6 +1,7 @@
 package com.leandroSS.API_Loja.services;
 
 import com.leandroSS.API_Loja.entities.shopList.*;
+import com.leandroSS.API_Loja.exception.UnauthorizedUser;
 import com.leandroSS.API_Loja.repositories.ProductRepository;
 import com.leandroSS.API_Loja.repositories.ShoppListRepository;
 import com.leandroSS.API_Loja.repositories.UserRepository;
@@ -26,10 +27,10 @@ public class ShoppListService {
     private UserRepository userRepository;
 
 
-    public void addItem(CreateShoppListDTO createShoppListDTO, JwtAuthenticationToken token) throws Exception {
+    public void addItem(CreateShoppListDTO createShoppListDTO, JwtAuthenticationToken token) {
 
         if (!this.tokenService.isUser(token)) {
-            throw new Exception("Usuario não autorizado");
+            throw new UnauthorizedUser("Usuario não autorizado");
         }
 
         var user = this.userRepository.findById(Long.valueOf(createShoppListDTO.userId()));
@@ -71,15 +72,6 @@ public class ShoppListService {
                 totalValue
         );
 
-
-//        return user.get().getShoppLists().stream()
-//               .map(item -> new UserItemListDTO(
-//                       user.get().getUsername(),
-//                       itensList,
-//                       totalValue
-//
-//               ))
-//               .toList();
     }
 
 
