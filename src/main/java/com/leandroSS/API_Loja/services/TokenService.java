@@ -4,6 +4,7 @@ import com.leandroSS.API_Loja.entities.user.dto.LoginRequest;
 import com.leandroSS.API_Loja.entities.user.dto.LoginResponse;
 import com.leandroSS.API_Loja.entities.user.UserType;
 import com.leandroSS.API_Loja.exception.InvalidLoginOrPassword;
+import com.leandroSS.API_Loja.exception.NotFound;
 import com.leandroSS.API_Loja.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,7 +57,8 @@ public class TokenService {
 
     public Boolean isAdmin(JwtAuthenticationToken token) {
 
-        var user = this.userRepository.findById(Long.valueOf(token.getName())).orElse(null);
+        var user = this.userRepository.findById(Long.valueOf(token.getName()))
+                .orElseThrow(() -> new NotFound("usuario não encontrado"));
 
 //        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
 
@@ -67,7 +69,8 @@ public class TokenService {
 
     public Boolean isUser(JwtAuthenticationToken token) {
 
-        var user = this.userRepository.findById(Long.valueOf(token.getName())).orElse(null);
+        var user = this.userRepository.findById(Long.valueOf(token.getName()))
+                .orElseThrow(() -> new NotFound("usuario não encontrado"));
 
         //        user.map(userEntity -> userEntity.getRole().equals(UserType.ADMIN)).orElse(false);
 

@@ -26,4 +26,10 @@ public class ExcepitionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(threartResponse);
     }
 
+    @ExceptionHandler(NotFound.class)
+    ResponseEntity<ErrorMessage> notFound(NotFound exception) {
+        ErrorMessage threartResponse = new ErrorMessage(exception.getMessage(), "404");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(threartResponse);
+    }
+
 }

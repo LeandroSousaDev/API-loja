@@ -4,6 +4,7 @@ import com.leandroSS.API_Loja.entities.shopList.*;
 import com.leandroSS.API_Loja.entities.shopList.dto.CreateShoppListDTO;
 import com.leandroSS.API_Loja.entities.shopList.dto.ListItemDTO;
 import com.leandroSS.API_Loja.entities.shopList.dto.UserItemListDTO;
+import com.leandroSS.API_Loja.exception.NotFound;
 import com.leandroSS.API_Loja.exception.UnauthorizedUser;
 import com.leandroSS.API_Loja.repositories.ProductRepository;
 import com.leandroSS.API_Loja.repositories.ShoppListRepository;
@@ -34,14 +35,18 @@ public class ShoppListService {
             throw new UnauthorizedUser("Usuario não autorizado");
         }
 
-        var user = this.userRepository.findById(Long.valueOf(createShoppListDTO.userId()));
-        var product = this.productRepository.findById(Long.valueOf(createShoppListDTO.productId()));
-        var id = new ShoppListId(user.get().getId(), product.get().getId());
+        var user = this.userRepository.findById(Long.valueOf(createShoppListDTO.userId()))
+                .orElseThrow(() -> new NotFound("usuario não encontrado"));
+
+        var product = this.productRepository.findById(Long.valueOf(createShoppListDTO.productId()))
+                .orElseThrow(() -> new NotFound("produto não encontrado"));
+
+        var id = new ShoppListId(user.getId(), product.getId());
 
         ShoppListEntity newItem = new ShoppListEntity();
         newItem.setId(id);
-        newItem.setUser(user.get());
-        newItem.setProduct(product.get());
+        newItem.setUser(user);
+        newItem.setProduct(product);
         newItem.setQuantity(createShoppListDTO.quantity());
 
         this.shoppListRepository.save(newItem);
@@ -49,7 +54,8 @@ public class ShoppListService {
 
     public UserItemListDTO shoppList(JwtAuthenticationToken token) {
 
-        var user = this.userRepository.findById(Long.valueOf(token.getName())).orElse(null);
+        var user = this.userRepository.findById(Long.valueOf(token.getName()))
+                .orElseThrow(() -> new NotFound("usuario não encontrado"));
 
         var itensList = user.getShoppLists().stream()
                 .map(item -> new ListItemDTO(
@@ -81,7 +87,8 @@ public class ShoppListService {
             throw new UnauthorizedUser("Usuario não autorizado");
         }
 
-        var user = this.userRepository.findById(userId).orElse(null);
+        var user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new NotFound("usuario não encontrado"));;
 
         var itemList = this.shoppListRepository.findByUser(user);
 
